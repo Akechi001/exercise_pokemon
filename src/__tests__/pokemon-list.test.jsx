@@ -115,45 +115,45 @@ describe("Pokemon list with 'Load more' button", () => {
     `);
   });
 
-  it("no longer shows the 'Load more' if the user reached the last page", async () => {
-    render(<PokemonList />);
+    it("no longer shows the 'Load more' if the user reached the last page", async () => {
+      render(<PokemonList />);
 
-    // Press the "Load more" button twice, so we get to the last page
-    const user = userEvent.setup();
-    await user.click(await screen.findByRole("button", { name: "Load more" }));
-    await user.click(await screen.findByRole("button", { name: "Load more" }));
+      // Press the "Load more" button twice, so we get to the last page
+      const user = userEvent.setup();
+      await user.click(await screen.findByRole("button", { name: "Load more" }));
+      await user.click(await screen.findByRole("button", { name: "Load more" }));
 
-    // Check that the summary correctly updated
-    expect(
-      await screen.findByText("Displaying 12 of 12 results")
-    ).toBeInTheDocument();
+      // Check that the summary correctly updated
+      expect(
+        await screen.findByText("Displaying 12 of 12 results")
+      ).toBeInTheDocument();
 
-    // Check that 12 items are displayed
-    expect(screen.getAllByRole("listitem")).toHaveLength(12);
+      // Check that 12 items are displayed
+      expect(screen.getAllByRole("listitem")).toHaveLength(12);
 
-    // Check the 'Load more' button is no longer displayed
-    expect(
-      screen.queryByRole("button", { name: "Load more" })
-    ).not.toBeInTheDocument();
+      // Check the 'Load more' button is no longer displayed
+      expect(
+        screen.queryByRole("button", { name: "Load more" })
+      ).not.toBeInTheDocument();
 
-    // Check that those 12 items are what we expect
-    expect(
-      screen.getAllByRole("listitem").map((listItem) => listItem.textContent)
-    ).toMatchInlineSnapshot(`
-[
-  "bulbasaur",
-  "ivysaur",
-  "venusaur",
-  "charmander",
-  "charmeleon",
-  "charizard",
-  "squirtle",
-  "wartortle",
-  "blastoise",
-  "caterpie",
-  "metapod",
-  "butterfree",
-]
-`);
-  });
+      // Check that those 12 items are what we expect
+      expect(
+        screen.getAllByRole("listitem").map((listItem) => listItem.textContent)
+      ).toMatchInlineSnapshot(`
+  [
+    "bulbasaur",
+    "ivysaur",
+    "venusaur",
+    "charmander",
+    "charmeleon",
+    "charizard",
+    "squirtle",
+    "wartortle",
+    "blastoise",
+    "caterpie",
+    "metapod",
+    "butterfree",
+  ]
+  `);
+    });
 });
